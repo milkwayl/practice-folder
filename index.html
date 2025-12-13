@@ -1,13 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Micro Inner Biome Website Flow</title>
+    <style>
+        /* CSS 样式部分 - 用于美化页面 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #333; /* 背景深灰色，类似你的流程图背景 */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #444;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 80%;
+            max-width: 800px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 隐藏所有步骤，只显示当前步骤 */
+        .step-section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { color: #ff99cc; /* 类似流程图的粉色标题 */ text-shadow: 2px 2px 4px #000;}
+        h2 { color: #99ff99; margin-bottom: 30px; }
+        p { font-size: 1.2em; line-height: 1.6; }
+
+        /* 按钮样式 */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        /* 模拟流程图中的绿色/粉色按钮风格 */
+        .btn-green { background: linear-gradient(to bottom, #ccffcc, #99ff99); color: #333; }
+        .btn-pink { background: linear-gradient(to bottom, #ffccff, #ff99cc); color: #333; }
+        .btn-start { background-color: #ff99cc; color: white; font-size: 20px; }
+
+        /* Step 5 灯光效果 */
+        .body-outline {
+            width: 100px;
+            height: 200px;
+            background-color: #222;
+            border-radius: 50px;
+            margin: 20px auto;
+            border: 2px solid #555;
+            position: relative;
+            box-shadow: 0 0 5px #000;
+        }
+
+        .light-effect {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            opacity: 0.6;
+            animation: flicker 1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.3; box-shadow: 0 0 5px currentColor; }
+            100% { opacity: 1; box-shadow: 0 0 20px currentColor; }
+        }
+
+        /* 结果框样式 */
+        .result-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .good-result { background-color: rgba(144, 238, 144, 0.2); border: 1px solid #90ee90; color: #90ee90; }
+        .bad-result { background-color: rgba(255, 99, 71, 0.2); border: 1px solid #ff6347; color: #ff6347; }
+
+    </style>
 </head>
 <body>
-    Hello ChaiChai!
-    It's time to say I miss u!
-    What about you!
-</body>
-</html>
+
+<div class="container">
+    
+    <div id="step1" class="step-section active">
+        <h1>Micro Inner Biome Homepage</h1>
+        <p>探索你身体里的微观世界</p>
+        <button class="btn-pink" onclick="goToStep(2)">进入探索 (Start)</button>
+    </div>
+
+    <div id="step2" class="step-section">
+        <h2>Step 2: 选择一种食物类型</h2>
+        <p>不同的食物会给身体带来不同的影响，请选择一个查看：</p>
+        <div class="btn-group">
+            <button class="btn-green" onclick="selectFood('fiber')">富含膳食纤维食物<br>(Dietary Fiber)</button>
+            <button class="btn-green" onclick="selectFood('sugar')">高糖食物<br>(High-Sugar)</button>
+            <button class="btn-green" onclick="selectFood('fat')">高脂肪食物<br>(High-Fat)</button>
+            <button class="btn-green" onclick="selectFood('carbs')">精制碳水化合物<br>(Refined Carbs)</button>
+            <button class="btn-green" onclick="selectFood('additives')">含添加剂食物<br>(Additives)</button>
+        </div>
+    </div>
+
+    <div id="step3" class="step-section">
+        <h2>Step 3: 食物经过的器官</h2>
+        <p>这种食物进入了你的身体，正在经过以下器官...</p>
+        <div class="btn-group">
+            <button class="btn-pink">口腔 (Oral Cavity)</button>
+            <button class="btn-pink">胃 (Stomach)</button>
+            <button class="btn-pink">小肠 (Small Intestine)</button>
+            <button class="btn-pink">大肠 (Large Intestine)</button>
+            <button class="btn-pink">肝脏 (Liver)</button>
+        </div>
+        <br><br>
+        <button class="btn-green" onclick="goToStep(4)">下一步：观察微生物 (Next)</button>
+    </div>
+
+    <div id="step4" class="step-section">
+        <h1 style="font-size: 24px;">Step 4</h1>
+        <div style="background: linear-gradient(to bottom, #ffccff, #ff99cc); padding: 20px; border-radius: 10px; color: #333; font-weight: bold;">
+            What will happen to the microorganisms in the body?
+            <br>
+            (体内的微生物会发生什么变化？)
+        </div>
+        <br>
+        <button class="btn-green" onclick="showLightEffect()">查看结果 (See Result)</button>
+    </div>
+
+    <div id="step5" class="step-section">
+        <h2>Step 5: 身体反应</h2>
+        <div class="body-outline">
+            <div id="light-display" class="light-effect"></div>
+        </div>
+        <p id="light-description">...</p>
+        <button class="btn-pink" onclick="goToStep(6)">进入游戏 (Enter Game)</button>
+    </div>
+
+    <div id="step6" class="step-section">
+        <h1>Step 6: Game Page</h1>
+        <p>现在，由你来掌控身体的健康！</p>
+        <button class="btn-pink" onclick="goToStep(7)">开始喂食 (Start Feeding)</button>
+    </div>
+
+    <div id="step7" class="step-section">
+        <h2>Step 7: Choose food and feed the body</h2>
+        <div class="body-outline" style="background: #333; border-color: white;"></div>
+        <p>请做出明智的选择：</p>
+        <div class="btn-group">
+            <button class="btn-green" onclick="playGame('good')">🍎 苹果 (膳食纤维)</button>
+            <button class="btn-green" onclick="playGame('bad')">🍬 糖果 (高糖/添加剂)</button>
+        </div>
+    </div>
+
+    <div id="step8" class="step-section">
+        <h2>Step 8: 最终结果</h2>
+        <div id="game-result"></div>
+        <br>
+        <button class="btn-pink" onclick="resetFlow()">重新开始 (Restart)</button>
+    </div>
+
+</div>
+
+<script>
+    // JavaScript 逻辑部分 - 用于控制流程
+
+    let userFoodChoice = '';
+
+    // 切换到指定步骤
+    function goToStep(stepNum) {
+        // 隐藏所有 section
+        const sections = document.querySelectorAll('.step-section');
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        // 显示目标 section
+        document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    // Step 2: 记录用户选择的食物类型，并跳转到 Step 3
+    function selectFood(type) {
+        userFoodChoice = type;
+        console.log("User selected: " + type);
+        goToStep(3);
+    }
+
+    // Step 4 -> 5: 根据之前的选择显示对应的灯光颜色
+    function showLightEffect() {
+        goToStep(5);
+        const lightDiv = document.getElementById('light-display');
+        const descP = document.getElementById('light-description');
+        
+        // 重置样式
+        lightDiv.style.backgroundColor = 'transparent';
+        lightDiv.style.animation = 'flicker 1s infinite alternate';
+
+        // 逻辑判断：根据 Step 2 的选择显示颜色
+        if (userFoodChoice === 'fiber') {
+            lightDiv.style.color = '#00ff00'; // Green
+            lightDiv.style.backgroundColor = '#00ff00';
+            descP.innerHTML = "A <span style='color:#00ff00'>GREEN</span> light flickered on the side of the body.<br>(健康！益生菌在欢呼)";
+        } else if (userFoodChoice === 'sugar') {
+            lightDiv.style.color = '#ffff00'; // Yellow
+            lightDiv.style.backgroundColor = '#ffff00';
+            descP.innerHTML = "A <span style='color:#ffff00'>YELLOW</span> light flickered on the side of the body.<br>(警告！血糖波动)";
+        } else if (userFoodChoice === 'fat') {
+            lightDiv.style.color = '#ff0000'; // Red
+            lightDiv.style.backgroundColor = '#ff0000';
+            descP.innerHTML = "A <span style='color:#ff0000'>RED</span> light flickered on the side of the body.<br>(危险！炎症反应)";
+        } else if (userFoodChoice === 'carbs') {
+            lightDiv.style.color = '#00ffff'; // Blue (using cyan/blue for refined carbs)
+            lightDiv.style.backgroundColor = '#00ffff';
+            descP.innerHTML = "A <span style='color:#00ffff'>BLUE</span> light flickered on the side of the body.<br>(代谢变慢)";
+        } else {
+            // Additives -> Colorful
+            lightDiv.style.background = 'linear-gradient(45deg, red, blue, green, yellow)';
+            lightDiv.style.animation = 'flicker 0.2s infinite alternate'; // 闪烁更快
+            descP.innerHTML = "<span style='color:violet'>Colorful</span> lights flickered.<br>(混乱！免疫系统困
